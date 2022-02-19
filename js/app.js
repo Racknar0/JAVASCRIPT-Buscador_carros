@@ -66,10 +66,11 @@ transmision.addEventListener("change", (e) => {
 
 color.addEventListener("change", (e) => {
   datosBusqueda.color = e.target.value;
+  filtrarAuto();
 });
 
 /************** ( '//Funciones' ) **************/
-
+//generar html resultado
 function mostrarAutos(autos) {
   limpiarHtml(); //! elimina el html del document
 
@@ -79,13 +80,18 @@ function mostrarAutos(autos) {
     const { marca, modelo, year, puertas, transmision, precio, color } = auto; //destructuring
 
     autoHTML.textContent = `
-        ${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmision: ${transmision} - Precio: ${precio} - Color: ${color}
-        
+        ${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmision: ${transmision} - Precio: ${precio} - Color: ${color}     
         `;
-
     //insertar en html
     resultado.appendChild(autoHTML);
   });
+}
+//generar html error
+function generarError() {
+    const noResultado = document.createElement("DIV");
+    noResultado.classList.add('alerta', 'error');
+    noResultado.textContent = `No se ha encontrado resultado en tu búsqueda`;
+    resultado.appendChild(noResultado);
 }
 
 //limpiar html
@@ -113,10 +119,15 @@ function filtrarAuto() {
     .filter(filtrarMinimo)
     .filter(filtrarMaximo)
     .filter(filtrarPuertas)
-    .filter(filtrarTransmision);
+    .filter(filtrarTransmision)
+    .filter(filtrarColor);
 
-  mostrarAutos(resultado);
-  /* console.log(resultado); */
+    if (resultado.length == 0) {
+        limpiarHtml();
+        generarError();
+    }   else {
+        mostrarAutos(resultado);
+    }
 }
 
 //filtrar por propiedad
@@ -158,6 +169,13 @@ function filtrarPuertas(auto) {
 function filtrarTransmision(auto) {
     if (datosBusqueda.transmision) {
         return auto.transmision === datosBusqueda.transmision;
+      }
+      return auto;
+}
+
+function filtrarColor(auto) {
+    if (datosBusqueda.color) {
+        return auto.color === datosBusqueda.color;
       }
       return auto;
 }
