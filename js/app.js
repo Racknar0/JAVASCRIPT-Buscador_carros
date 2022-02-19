@@ -46,18 +46,22 @@ year.addEventListener("change", (e) => {
 
 minimo.addEventListener("change", (e) => {
   datosBusqueda.minimo = e.target.value;
+  filtrarAuto();
 });
 
 maximo.addEventListener("change", (e) => {
   datosBusqueda.maximo = e.target.value;
+  filtrarAuto();
 });
 
 puertas.addEventListener("change", (e) => {
-  datosBusqueda.puertas = e.target.value;
+  datosBusqueda.puertas = parseInt(e.target.value);
+  filtrarAuto();
 });
 
 transmision.addEventListener("change", (e) => {
   datosBusqueda.transmision = e.target.value;
+  filtrarAuto();
 });
 
 color.addEventListener("change", (e) => {
@@ -86,9 +90,9 @@ function mostrarAutos(autos) {
 
 //limpiar html
 function limpiarHtml() {
-    while(resultado.firstChild) {
-        resultado.removeChild(resultado.firstChild)
-    }
+  while (resultado.firstChild) {
+    resultado.removeChild(resultado.firstChild);
+  }
 }
 
 //genera los años del select
@@ -103,7 +107,13 @@ function llenarSelect() {
 
 // Funcion de alto nivel que filtra en base a la busqueda
 function filtrarAuto() {
-  const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
+  const resultado = autos
+    .filter(filtrarMarca)
+    .filter(filtrarYear)
+    .filter(filtrarMinimo)
+    .filter(filtrarMaximo)
+    .filter(filtrarPuertas)
+    .filter(filtrarTransmision);
 
   mostrarAutos(resultado);
   /* console.log(resultado); */
@@ -122,4 +132,32 @@ function filtrarYear(auto) {
     return auto.year === datosBusqueda.year;
   }
   return auto;
+}
+
+function filtrarMinimo(auto) {
+  if (datosBusqueda.minimo) {
+    return auto.precio >= datosBusqueda.minimo;
+  }
+  return auto;
+}
+
+function filtrarMaximo(auto) {
+  if (datosBusqueda.maximo) {
+    return auto.precio <= datosBusqueda.maximo;
+  }
+  return auto;
+}
+
+function filtrarPuertas(auto) {
+  if (datosBusqueda.puertas) {
+    return auto.puertas === datosBusqueda.puertas;
+  }
+  return auto;
+}
+
+function filtrarTransmision(auto) {
+    if (datosBusqueda.transmision) {
+        return auto.transmision === datosBusqueda.transmision;
+      }
+      return auto;
 }
