@@ -1,4 +1,4 @@
-// Variables
+/************** ( '// Variables' ) **************/
 const marca = document.querySelector("#marca");
 const year = document.querySelector("#year");
 const minimo = document.querySelector("#minimo");
@@ -24,10 +24,10 @@ const datosBusqueda = {
   color: "",
 };
 
-//Eventos
+/************** ( '//Eventos' ) **************/
 
 document.addEventListener("DOMContentLoaded", () => {
-  mostrarAutos(); //Mostrar Autos al cargar
+  mostrarAutos(autos); //Mostrar Autos al cargar
 
   //Llena opciones de años
   llenarSelect();
@@ -36,13 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
 //event listeners para los select de busqueda
 marca.addEventListener("change", (e) => {
   datosBusqueda.marca = e.target.value;
-
   filtrarAuto();
 });
 
 year.addEventListener("change", (e) => {
   datosBusqueda.year = parseInt(e.target.value); //! convertir a number el string de año
-
   filtrarAuto();
 });
 
@@ -66,8 +64,11 @@ color.addEventListener("change", (e) => {
   datosBusqueda.color = e.target.value;
 });
 
-//Funciones
-function mostrarAutos() {
+/************** ( '//Funciones' ) **************/
+
+function mostrarAutos(autos) {
+  limpiarHtml(); //! elimina el html del document
+
   autos.forEach((auto) => {
     const autoHTML = document.createElement("P");
 
@@ -83,6 +84,13 @@ function mostrarAutos() {
   });
 }
 
+//limpiar html
+function limpiarHtml() {
+    while(resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild)
+    }
+}
+
 //genera los años del select
 function llenarSelect() {
   for (let i = max; i >= min; i--) {
@@ -94,24 +102,24 @@ function llenarSelect() {
 }
 
 // Funcion de alto nivel que filtra en base a la busqueda
-function filtrarAuto(){
-    const resultado = autos.filter( filtrarMarca ).filter( filtrarYear )
+function filtrarAuto() {
+  const resultado = autos.filter(filtrarMarca).filter(filtrarYear);
 
-    console.log(resultado);
+  mostrarAutos(resultado);
+  /* console.log(resultado); */
 }
 
 //filtrar por propiedad
-function filtrarMarca(auto){
-    if (datosBusqueda.marca) {
-        return auto.marca === datosBusqueda.marca
-    }
-    return auto;
+function filtrarMarca(auto) {
+  if (datosBusqueda.marca) {
+    return auto.marca === datosBusqueda.marca;
+  }
+  return auto;
 }
 
-function filtrarYear(auto){
-
-    if (datosBusqueda.year) {
-        return auto.year === datosBusqueda.year;
-    }
-    return auto;
+function filtrarYear(auto) {
+  if (datosBusqueda.year) {
+    return auto.year === datosBusqueda.year;
+  }
+  return auto;
 }
