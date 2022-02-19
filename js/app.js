@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
 marca.addEventListener("change", (e) => {
   datosBusqueda.marca = e.target.value;
   console.log(datosBusqueda);
+
+  filtrarAuto();
 });
 
 year.addEventListener("change", (e) => {
@@ -61,11 +63,8 @@ transmision.addEventListener("change", (e) => {
 });
 
 color.addEventListener("change", (e) => {
-    datosBusqueda.color = e.target.value;
-  });
-  
-
-
+  datosBusqueda.color = e.target.value;
+});
 
 //Funciones
 function mostrarAutos() {
@@ -92,4 +91,18 @@ function llenarSelect() {
     opcion.textContent = i;
     year.appendChild(opcion);
   } //agregar opciones de año al select
+}
+
+// Funcion de alto nivel que filtra en base a la busqueda
+function filtrarAuto(){
+    const resultado = autos.filter(filtrarMarca); 
+
+    console.log(resultado);
+}
+
+function filtrarMarca(auto){
+    if (datosBusqueda.marca) {
+        return auto.marca === datosBusqueda.marca
+    }
+    return auto;
 }
