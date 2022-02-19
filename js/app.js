@@ -1,3 +1,5 @@
+
+
 /************** ( '// Variables' ) **************/
 const marca = document.querySelector("#marca");
 const year = document.querySelector("#year");
