@@ -16,8 +16,10 @@ function mostrarAutos(){
     autos.forEach(auto => {
         const autoHTML = document.createElement('P');
 
+        const {marca, modelo, year, puertas, transmision, precio, color} = auto; //destructuring
+
         autoHTML.textContent = `
-        ${auto.marca}
+        ${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmision: ${transmision} - Precio: ${precio} - Color: ${color}
         
         `
 
