@@ -26,51 +26,7 @@ const datosBusqueda = {
   color: "",
 };
 
-/************** ( '//Eventos' ) **************/
-
-document.addEventListener("DOMContentLoaded", () => {
-  mostrarAutos(autos); //Mostrar Autos al cargar
-
-  //Llena opciones de años
-  llenarSelect();
-});
-
-//event listeners para los select de busqueda
-marca.addEventListener("change", (e) => {
-  datosBusqueda.marca = e.target.value;
-  filtrarAuto();
-});
-
-year.addEventListener("change", (e) => {
-  datosBusqueda.year = parseInt(e.target.value); //! convertir a number el string de año
-  filtrarAuto();
-});
-
-minimo.addEventListener("change", (e) => {
-  datosBusqueda.minimo = e.target.value;
-  filtrarAuto();
-});
-
-maximo.addEventListener("change", (e) => {
-  datosBusqueda.maximo = e.target.value;
-  filtrarAuto();
-});
-
-puertas.addEventListener("change", (e) => {
-  datosBusqueda.puertas = parseInt(e.target.value);
-  filtrarAuto();
-});
-
-transmision.addEventListener("change", (e) => {
-  datosBusqueda.transmision = e.target.value;
-  filtrarAuto();
-});
-
-color.addEventListener("change", (e) => {
-  datosBusqueda.color = e.target.value;
-  filtrarAuto();
-});
-
+/
 /************** ( '//Funciones' ) **************/
 //generar html resultado
 function mostrarAutos(autos) {
