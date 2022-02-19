@@ -1,5 +1,3 @@
-
-
 /************** ( '// Variables' ) **************/
 const marca = document.querySelector("#marca");
 const year = document.querySelector("#year");
@@ -90,10 +88,10 @@ function mostrarAutos(autos) {
 }
 //generar html error
 function generarError() {
-    const noResultado = document.createElement("DIV");
-    noResultado.classList.add('alerta', 'error');
-    noResultado.textContent = `No se ha encontrado resultado en tu búsqueda`;
-    resultado.appendChild(noResultado);
+  const noResultado = document.createElement("DIV");
+  noResultado.classList.add("alerta", "error");
+  noResultado.textContent = `No se ha encontrado resultado en tu búsqueda`;
+  resultado.appendChild(noResultado);
 }
 
 //limpiar html
@@ -124,12 +122,12 @@ function filtrarAuto() {
     .filter(filtrarTransmision)
     .filter(filtrarColor);
 
-    if (resultado.length == 0) {
-        limpiarHtml();
-        generarError();
-    }   else {
-        mostrarAutos(resultado);
-    }
+  if (resultado.length == 0) {
+    limpiarHtml();
+    generarError();
+  } else {
+    mostrarAutos(resultado);
+  }
 }
 
 //filtrar por propiedad
@@ -169,15 +167,15 @@ function filtrarPuertas(auto) {
 }
 
 function filtrarTransmision(auto) {
-    if (datosBusqueda.transmision) {
-        return auto.transmision === datosBusqueda.transmision;
-      }
-      return auto;
+  if (datosBusqueda.transmision) {
+    return auto.transmision === datosBusqueda.transmision;
+  }
+  return auto;
 }
 
 function filtrarColor(auto) {
-    if (datosBusqueda.color) {
-        return auto.color === datosBusqueda.color;
-      }
-      return auto;
+  if (datosBusqueda.color) {
+    return auto.color === datosBusqueda.color;
+  }
+  return auto;
 }
